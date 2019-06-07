@@ -1,6 +1,9 @@
 'use strict';
 
 const subHead = document.getElementById("subhead");
+const download = document.getElementById("download");
+const fullLogo = document.getElementById("full-logo");
+
 const colours = ["1BA0CE", "D5344D", "1E988B", "4E5391", "E8883C"];
 
 function debounce(func, wait, immediate) {
@@ -49,5 +52,21 @@ const update = debounce(() => {
   setEndOfContenteditable(subHead);
 }, 250);
 
+function downloadUri(filename, uri) {
+	var link = document.createElement("a");
+ 	link.download = filename;
+ 	link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+async function generateDownload() {
+	let canvas = await html2canvas(fullLogo);
+	let dataUri = canvas.toDataURL('image/png');
+  downloadUri("Yes.png", dataUri)
+}
+
 selectElementContents(subHead);
 subHead.addEventListener("input", update);
+download.addEventListener("click", generateDownload);
