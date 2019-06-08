@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>YES Logo Generator</title>
+  <title>YES Poster Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="style.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="./favicon.png">
@@ -11,15 +11,19 @@
 
 <body>
 
-  <section id="full-logo">
-    <h1 id="logo">YES</h1>
-    <div contenteditable="true" rows="1" id="subhead">Type here</div>
-  </section>
+  <header>
+    <h2>a <a href="https://yeslabs.scot"><span>Yes</span>Labs</a> project</a></h2>
+    <input type="text" placeholder="Enter text" id="name" />
+    <fieldset id="layout">
+      <label><input type="radio" name="layout" value="a4" checked="checked">A4</label>
+      <label><input type="radio" name="layout" value="square">Square</label>
+    </fieldset>
+    <button id="download">Download</button>
+  </header>
 
-  <button id="download">Download</button>
+  <section id="full-logo"></section>
 
-  <script src="html2canvas.min.js"/></script>
-  <script src="script.js"></script>
+  <script defer="defer" src="script.js"></script>
 
 </body>
 </html>

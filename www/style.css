@@ -13,39 +13,98 @@
 
 body, html {
   height: 100%;
-  display: grid;
-  background-color: white;
-  padding: 0;
-  margin: 0;
-  color: #111;
-  font-size: 1.2em;
+  background-color: rgb(230, 236, 240);
 }
 
-body, input {
-  font-family: Circular, Helvetica, Arial, sans-serif;;
+body, input, button {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1em;
 }
 
 section {
+  margin: 2em auto;
+  background: white;
+  width: 52vw;
+  height: 37vw;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   display: flex;
   flex-direction: column;
-  padding: 2em;
+}
+
+section[data-layout=square] {
+  width: 50vw;
+  height: 50vw;
+}
+
+section[data-layout=a4] {
+  width: 52vw;
+  height: 37vw;
+}
+
+input {
+  padding: .5em;
+}
+
+header {
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+header h2 {
+  flex: 3;
+  display: block;
+  line-height: 175%;
+}
+
+header > * {
+  margin: 0 1em;
+}
+
+canvas {
   height: 100%;
-  box-sizing: border-box;
-  align-items: stretch;
+  width: 100%;
+}
+
+fieldset {
+  border: 0;
+}
+
+fieldset label {
+  display: block;
+}
+
+fieldset label:first-child {
+  margin-bottom: .5em;
+}
+fieldset input[type=radio] {
+  margin-right: .5em;
+}
+
+a {
+  color: #666;
+  text-decoration: none;
+}
+a span {
+  color: #005eb8;
+}
+
+a:hover {
+  opacity: .8;
 }
 
 #logo {
-  display: block;
-  flex: 3;
-  background: url(yes.svg) center center;
+  margin: 0 7vw 0em 7vw;
+  flex: 1.5;
+  background: url(yes.svg) no-repeat bottom center;
   background-size: contain;
-  background-repeat: no-repeat;
-  margin-right: -0.1em;
   color: transparent;
   font-variant: small-caps;
 }
 
-#subhead {
+#sub-head {
   font-family: 'gilroyblack';
   flex: 1;
   background: transparent;
@@ -53,27 +112,27 @@ section {
   display: block;
   width: 100%;
   text-align: center;
-  font-size: 8vw;
+  font-weight: bold;
+  font-size: 7vw;
   outline: 0;
+  padding: 0 .5em;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 #download {
-  position: fixed;
-  display:block;
-  width: 5em;
-  height: 5em;
-  border-radius: 5em;
-  bottom: 2em;
-  right: 2em;
-  background: url(download.svg) no-repeat center center;
-  background-size: 50%;
-  color: transparent;
-  border: 1px solid #999;
-  opacity: .6;
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
+  background: #4E5391 url(download.svg) no-repeat 1em center;
+  background-size: 1.2em;
+  padding: .5em 1em;
+  border: 0;
+  font-weight: bold;
+  border-radius: .5em;
+  text-indent: 2em;
+  color: white;
+  fill: white;
 }
 
 #download:hover {
-  background-color: #EEE;
+  opacity: .9;
   cursor: pointer;
 }
