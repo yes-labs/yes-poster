@@ -26,12 +26,13 @@ let canvas;
 
 const update = debounce(async () => {
 
-  let name = document.getElementById("name").value;
-  let radio = document.querySelector("input[name=layout]:checked");
+  let header = $("#header").value;
+  let subHeader = $("#subheader").value;
+  let radio = $("input[name=layout]:checked");
   let layout = radio && radio.value || "a4";
 
-  if (!(!name && layout === "a4")) {
-    let params = "?" + new URLSearchParams({name, layout}).toString();
+  if (!(!header && layout === "a4")) {
+    let params = "?" + new URLSearchParams({header, subHeader, layout}).toString();
     window.history.replaceState("", "", params);
   }
   fullLogo.dataset.layout = layout;
@@ -51,25 +52,13 @@ const update = debounce(async () => {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, width, height);
 
+  let headerHeight = height / 2;
   let subHeadHeight = height / 10;
+  let marginTop = height / 1.7;
+  let subHeaderMarginTop = marginTop + subHeadHeight + 100;
 
-  let img = await loadImage("yes.svg");
-  let marginTop = (height - (img.height + subHeadHeight)) / 2.2;
-
-  ctx.drawImage(img, (width - img.width) / 2, marginTop,
-                img.width, img.height);
-
-  ctx.font = subHeadHeight + "px gilroyblack";
-  let size = ctx.measureText(name);
-  let y = img.height + marginTop + 350;
-  let divisor = Math.floor(name.length / colours.length) + 1;
-  let start = (width - size.width) / 2;
-
-  for (let i = 0; i < name.length; i++) {
-    ctx.fillStyle = "#" + colours[Math.floor(i / divisor)];
-    ctx.fillText(name[i], start, y);
-    start += ctx.measureText(name[i]).width;
-  }
+  drawColouredText(ctx, width, header, headerHeight, marginTop);
+  drawColouredText(ctx, width, subHeader, subHeadHeight, subHeaderMarginTop);
 
   fullLogo.innerHTML = '';
   fullLogo.appendChild(canvas);
@@ -87,6 +76,27 @@ function loadImage(url) {
   });
 }
 
+async function drawColouredText(ctx, width, text, textSize, marginTop) {
+  if (text === "YES") {
+    let img = await loadImage("yes.svg");
+    ctx.drawImage(img,
+                  (width - img.width) / 2,
+                  marginTop - img.height,
+                  img.width, img.height);
+    return;
+  }
+  ctx.font = textSize + "px gilroyblack";
+  let size = ctx.measureText(text);
+  let divisor = Math.floor(text.length / colours.length) + 1;
+  let start = (width - size.width) / 2;
+
+  for (let i = 0; i < text.length; i++) {
+    ctx.fillStyle = "#" + colours[Math.floor(i / divisor)];
+    ctx.fillText(text[i], start, marginTop);
+    start += ctx.measureText(text[i]).width;
+  }
+}
+
 function downloadUri(filename, uri) {
   var link = document.createElement("a");
  	link.download = filename;
@@ -102,16 +112,19 @@ async function generateDownload() {
 
 var params = new URLSearchParams(window.location.search);
 
-if (params.has("name")) {
-  $("#name").value = params.get("name");
+if (params.has("subheader")) {
+  $("#subheader").value = params.get("subheader");
 }
+
+$("#header").value = params.get("header") || "YES";
 
 if (params.has("layout")) {
   let layout = params.get("layout");
   let radio = $(`input[name=layout][value=${layout}]`).checked = true;
 }
 
-$("#name").addEventListener("input", update);
+$("#header").addEventListener("input", update);
+$("#subheader").addEventListener("input", update);
 $("#layout").addEventListener("input", update);
 download.addEventListener("click", generateDownload);
 
