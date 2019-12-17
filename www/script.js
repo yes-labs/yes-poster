@@ -112,11 +112,8 @@ async function generateDownload() {
 
 var params = new URLSearchParams(window.location.search);
 
-if (params.has("subheader")) {
-  $("#subheader").value = params.get("subheader");
-}
-
 $("#header").value = params.get("header") || "YES";
+$("#subheader").value = params.get("subheader") || "Enter text!";
 
 if (params.has("layout")) {
   let layout = params.get("layout");
