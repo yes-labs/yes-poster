@@ -1,4 +1,4 @@
-[Yes Posters](https://posters.yelabs.scot/)
+[Yes Posters](https://poster.yeslabs.scot)
 ==================================================
 
 Welcome, so you are thinking about contributing to YesPosters? Awesome, this is a great place to start.
